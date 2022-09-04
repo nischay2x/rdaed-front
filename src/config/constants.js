@@ -7,7 +7,9 @@ export const twitter = "https://www.twitter.com";
 export const user = {
     name: "Rohit Sharma",
     mobile: "+91-6264225123",
-    address: "Raipur"
+    address: "Raipur",
+    
+    image: "https://images.pexels.com/photos/937481/pexels-photo-937481.jpeg?cs=srgb&dl=pexels-mentatdgt-937481.jpg?auto=compress&cs=tinysrgb&w=480&h=285&dpr=1"
 }
 
 export const properties = [
