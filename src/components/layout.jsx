@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { 
-    AddIcCall, MailOutline, Facebook, Instagram, Search,
-    Twitter, Person, KeyboardArrowDown, CurrencyRupee, Comment, ListAlt, Description 
+    Search, Person, Home, CurrencyRupee, 
+    Comment, ListAlt, Description, MoreHoriz, ArrowDropDown, FolderCopy
 } from '@mui/icons-material';
 import { 
     Box, Link, Typography, Avatar, Button, Menu, 
@@ -11,7 +11,7 @@ import {
 import { ThemeProvider, createTheme } from "@mui/material/styles"
 
 import BgImage from "../components/bgImage";
-import { tollFree, phone, mail, facebook, instagram, twitter, user } from '../config/constants';
+import { user } from '../config/constants';
 
 const styles = {
     infoBar: {
@@ -19,11 +19,28 @@ const styles = {
         justifyContent: "space-between",
         padding: "1rem 2rem",
         color: "#fff",
-        borderBottom: "1px solid black"
+        borderBottom: "1px solid #dddddd"
     },
     propertySearchButton: {
         backgroundColor: "#0047FF",
-        color: "#ffffff"
+        color: "#ffffff",
+        ":hover": {
+            backgroundColor: "#0047DD",
+        }
+    },
+    menuButton: {
+      color: "#6c6c6c",
+      borderRadius: "25px",
+      display: "flex",
+      columnGap: "5px",
+      padding: "0.7rem",
+      alignItems: 'center',
+      textTransform: "none",
+      ":hover": {
+          backgroundColor: "rgba(0, 71, 255, 0.08)",
+          boxShadow: "0px 0px 35px rgba(39, 39, 39, 0.04)",
+          color: "#0047dd"
+      }
     },
     phoneLink: {
         display: "flex",
@@ -33,10 +50,9 @@ const styles = {
     },
     appBar: {
         display: "flex",
-        justifyContent: "space-between",
-        padding: "0.8rem 2rem",
+        justifyContent: "space-around",
+        padding: "0.5rem 2rem",
         alignItems: "center",
-        borderBottom: "1px solid black"
     },
     siteTitle: {
         display: "flex",
@@ -46,7 +62,8 @@ const styles = {
     mainHold: {
         py: 4,
         px: 2,
-        zIndex: 2
+        zIndex: 2,
+        backgroundColor: "#EDEDED"
     }
 }
 
@@ -61,9 +78,6 @@ const theme = createTheme({
         ].join(','),
     },
     palette: {
-        primary: {
-            main: "#323C5B"
-        },
         secondary: {
             main: '#E33E7F'
         },
@@ -95,33 +109,43 @@ export default function Layout({ children }) {
                         RAIPUR DEVELOPMENT AUTHORITY
                     </Typography>
                 </Box>
-                <Box display="flex" >
-                    <form style={{display: "flex", columnGap: "5px"}} onSubmit={() => {}}>
+                <Box display="flex" columnGap={4} alignItems="center" >
+                    <form style={{display: "flex", columnGap: "10px"}} onSubmit={() => {}}>
                         <input type="text" value={propertySearchQuery} placeholder="Search property.." 
                             onChange={(e) => { setPropertySearchQuery(e.target.value) }}
                             className='property-search-input'
                         />
-                        <IconButton type='submit' color='customBlue' >
+                        <IconButton type='submit' sx={styles.propertySearchButton} >
                             <Search />
                         </IconButton>
                     </form>
                     <Box>
-                        <BgImage src={user.image} width="40px" height="40px" borderRadius="50%" />
+                        <Button id="profile-button" aria-controls={open ? 'profile-menu' : undefined} aria-haspopup="true"
+                            aria-expanded={open ? 'true' : undefined} onClick={handleClick}
+                        > <BgImage src={user.image} width="37px" height="37px" borderRadius="50%" mr="10px"/> <MoreHoriz />
+                        </Button>
+                        <Menu id="profile-menu" anchorEl={anchorEl} open={open} onClose={handleClose}
+                            MenuListProps={{'aria-labelledby': 'profile-button'}} 
+                        >
+                            <MenuItem onClick={handleClose}>Profile</MenuItem>
+                            <MenuItem onClick={handleClose}>My account</MenuItem>
+                            <MenuItem onClick={handleClose}>Logout</MenuItem>
+                        </Menu>
+                        
                     </Box>
                 </Box>
             </Box>
             <Box sx={styles.appBar}>
-                <Box sx={styles.siteTitle}>
-                    <Avatar alt="Site Logo" sx={{ width: 35, height: 35 }} src="/images/rda_logo.png" variant="square" />
-                    <Typography fontWeight="600" fontSize="1.1rem" fontFamily="inherit">
-                        RAIPUR DEVELOPMENT AUTHORITY
-                    </Typography>
-                </Box>
-                <Box display="flex" columnGap={2} style={{ postion: "sticky", top: 0, zIndex: 3, backgroundColor: "#fff" }} >
+                <Box>
+                        <Button onClick={handleClick} sx={styles.menuButton}> 
+                            <Home /> <span style={{ padding: "0 3px" }} >Home</span>
+                        </Button>
+                        
+                    </Box>
                     <Box>
                         <Button id="documents-button" aria-controls={open ? 'documents-menu' : undefined} aria-haspopup="true"
-                            aria-expanded={open ? 'true' : undefined} onClick={handleClick}
-                        > <Description /> <span style={{ padding: "0 3px" }} >Documents</span> <KeyboardArrowDown />
+                            aria-expanded={open ? 'true' : undefined} onClick={handleClick} sx={styles.menuButton}
+                        > <FolderCopy /> <span style={{ padding: "0 3px" }} >Documents</span> <ArrowDropDown />
                         </Button>
                         <Menu id="documents-menu" anchorEl={anchorEl} open={open} onClose={handleClose}
                             MenuListProps={{'aria-labelledby': 'documents-button'}} 
@@ -133,8 +157,8 @@ export default function Layout({ children }) {
                     </Box>
                     <Box>
                         <Button id="services-button" aria-controls={open ? 'services-menu' : undefined} aria-haspopup="true"
-                            aria-expanded={open ? 'true' : undefined} onClick={handleClick}
-                        > <ListAlt /> <span style={{ padding: "0 3px" }} >Services</span> <KeyboardArrowDown />
+                            aria-expanded={open ? 'true' : undefined} onClick={handleClick} sx={styles.menuButton}
+                        > <ListAlt /> <span style={{ padding: "0 3px" }} >Services</span> <ArrowDropDown />
                         </Button>
                         <Menu id="services-menu" anchorEl={anchorEl} open={open} onClose={handleClose}
                             MenuListProps={{'aria-labelledby': 'services-button'}}
@@ -146,8 +170,8 @@ export default function Layout({ children }) {
                     </Box>
                     <Box>
                         <Button id="complaints-button" aria-controls={open ? 'complaints-menu' : undefined} aria-haspopup="true"
-                            aria-expanded={open ? 'true' : undefined} onClick={handleClick}
-                        > <Comment /> <span style={{ padding: "0 3px" }} >Complaints</span> <KeyboardArrowDown />
+                            aria-expanded={open ? 'true' : undefined} onClick={handleClick} sx={styles.menuButton}
+                        > <Comment /> <span style={{ padding: "0 3px" }} >Complaints</span> <ArrowDropDown />
                         </Button>
                         <Menu id="complaints-menu" anchorEl={anchorEl} open={open} onClose={handleClose}
                             MenuListProps={{'aria-labelledby': 'complaints-button'}}
@@ -159,8 +183,8 @@ export default function Layout({ children }) {
                     </Box>
                     <Box>
                         <Button id="payments-button" aria-controls={open ? 'payments-menu' : undefined} aria-haspopup="true"
-                            aria-expanded={open ? 'true' : undefined} onClick={handleClick}
-                        > <CurrencyRupee /> <span style={{ padding: "0 3px" }} >Payments</span> <KeyboardArrowDown />
+                            aria-expanded={open ? 'true' : undefined} onClick={handleClick} sx={styles.menuButton}
+                        > <CurrencyRupee /> <span style={{ padding: "0 3px" }} >Payments</span> <ArrowDropDown />
                         </Button>
                         <Menu id="payments-menu" anchorEl={anchorEl} open={open} onClose={handleClose}
                             MenuListProps={{'aria-labelledby': 'payments-button'}}
@@ -172,8 +196,8 @@ export default function Layout({ children }) {
                     </Box>
                     <Box>
                         <Button id="profile-button" aria-controls={open ? 'profile-menu' : undefined} aria-haspopup="true"
-                            aria-expanded={open ? 'true' : undefined} onClick={handleClick} variant="contained" color="primary"
-                        > <Person /> <span style={{ padding: "0 3px" }} >Profile</span> <KeyboardArrowDown />
+                            aria-expanded={open ? 'true' : undefined} onClick={handleClick} sx={styles.menuButton}
+                        > <Person /> <span style={{ padding: "0 3px" }} >Profile</span> <ArrowDropDown />
                         </Button>
                         <Menu id="profile-menu" anchorEl={anchorEl} open={open} onClose={handleClose}
                             MenuListProps={{'aria-labelledby': 'profile-button'}}
@@ -183,7 +207,6 @@ export default function Layout({ children }) {
                             <MenuItem onClick={handleClose}>Logout</MenuItem>
                         </Menu>
                     </Box>
-                </Box>
             </Box>
             <Box sx={styles.mainHold}>
                 {children}
