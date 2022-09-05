@@ -20,3 +20,12 @@ iframe {
 .text-secondary {
   color: #6c6c6c;
 }
+
+input.property-search-input {
+  background-color: #ededed;
+  border-radius: 50px;
+  border: none;
+  outline: none;
+  padding: 7px 20px;
+  width: 300px;
+}

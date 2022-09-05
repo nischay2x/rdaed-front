@@ -1,21 +1,29 @@
 import React from 'react';
 
 import { 
-    AddIcCall, MailOutline, Facebook, Instagram, 
+    AddIcCall, MailOutline, Facebook, Instagram, Search,
     Twitter, Person, KeyboardArrowDown, CurrencyRupee, Comment, ListAlt, Description 
 } from '@mui/icons-material';
-import { Box, Link, Typography, Avatar, Button, Menu, MenuItem } from '@mui/material';
+import { 
+    Box, Link, Typography, Avatar, Button, Menu, 
+    MenuItem, TextField, IconButton 
+} from '@mui/material';
 import { ThemeProvider, createTheme } from "@mui/material/styles"
 
-import { tollFree, phone, mail, facebook, instagram, twitter } from '../config/constants';
+import BgImage from "../components/bgImage";
+import { tollFree, phone, mail, facebook, instagram, twitter, user } from '../config/constants';
 
 const styles = {
     infoBar: {
         display: "flex",
         justifyContent: "space-between",
-        backgroundColor: "var(--dark-blue)",
-        padding: "0.8rem 2rem",
-        color: "#fff"
+        padding: "1rem 2rem",
+        color: "#fff",
+        borderBottom: "1px solid black"
+    },
+    propertySearchButton: {
+        backgroundColor: "#0047FF",
+        color: "#ffffff"
     },
     phoneLink: {
         display: "flex",
@@ -58,6 +66,9 @@ const theme = createTheme({
         },
         secondary: {
             main: '#E33E7F'
+        },
+        customBlue: {
+            main: '#0047FF'
         }
     }
 });
@@ -72,31 +83,31 @@ export default function Layout({ children }) {
     const handleClose = () => {
         setAnchorEl(null);
     };
+    
+    const [propertySearchQuery, setPropertySearchQuery] = React.useState("")
 
     return (
         <ThemeProvider theme={theme}>
             <Box sx={styles.infoBar} >
-                <Box display="flex" columnGap={2} >
-                    <Link href={`tel:${tollFree}`} color="inherit" underline="none" sx={styles.phoneLink}>
-                        <AddIcCall /> Toll Free - {tollFree}
-                    </Link>
-                    <Link href={`tel:${phone}`} color="inherit" underline="none" sx={styles.phoneLink}>
-                        <AddIcCall /> Phone - {phone}
-                    </Link>
+                <Box sx={styles.siteTitle}>
+                    <Avatar alt="Site Logo" sx={{ width: 35, height: 35 }} src="/images/rda_logo.png" variant="square" />
+                    <Typography fontWeight="600" color="#D50008" fontSize="1.1rem" fontFamily="inherit">
+                        RAIPUR DEVELOPMENT AUTHORITY
+                    </Typography>
                 </Box>
-                <Box display="flex" columnGap={2} >
-                    <Link href={`mailto:${mail}`} color="inherit" underline="none" sx={styles.phoneLink}>
-                        <MailOutline /> {mail}
-                    </Link>
-                    <Link href={facebook} color="inherit" underline="none" sx={styles.phoneLink}>
-                        <Facebook />
-                    </Link>
-                    <Link href={instagram} color="inherit" underline="none" sx={styles.phoneLink}>
-                        <Instagram />
-                    </Link>
-                    <Link href={twitter} color="inherit" underline="none" sx={styles.phoneLink}>
-                        <Twitter />
-                    </Link>
+                <Box display="flex" >
+                    <form style={{display: "flex", columnGap: "5px"}} onSubmit={() => {}}>
+                        <input type="text" value={propertySearchQuery} placeholder="Search property.." 
+                            onChange={(e) => { setPropertySearchQuery(e.target.value) }}
+                            className='property-search-input'
+                        />
+                        <IconButton type='submit' color='customBlue' >
+                            <Search />
+                        </IconButton>
+                    </form>
+                    <Box>
+                        <BgImage src={user.image} width="40px" height="40px" borderRadius="50%" />
+                    </Box>
                 </Box>
             </Box>
             <Box sx={styles.appBar}>
