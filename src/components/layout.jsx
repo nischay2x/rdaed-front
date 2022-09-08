@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { 
-    Search, Person, Home, CurrencyRupee, 
+    Search, Person, Home, CurrencyRupee, CardTravel, Leaderboard,
     Comment, ListAlt, Description, MoreHoriz, ArrowDropDown, FolderCopy
 } from '@mui/icons-material';
 import { 
@@ -63,6 +63,7 @@ const styles = {
         py: 4,
         px: 2,
         zIndex: 2,
+        minHeight: "73vh",
         backgroundColor: "#EDEDED"
     }
 }
@@ -143,6 +144,19 @@ export default function Layout({ children }) {
                         
                     </Box>
                     <Box>
+                        <Button id="properties-button" aria-controls={open ? 'properties-menu' : undefined} aria-haspopup="true"
+                            aria-expanded={open ? 'true' : undefined} onClick={handleClick} sx={styles.menuButton}
+                        > <CardTravel /> <span style={{ padding: "0 3px" }} >Properties</span> <ArrowDropDown />
+                        </Button>
+                        <Menu id="properties-menu" anchorEl={anchorEl} open={open} onClose={handleClose}
+                            MenuListProps={{'aria-labelledby': 'properties-button'}} 
+                        >
+                            <MenuItem onClick={handleClose}>Profile</MenuItem>
+                            <MenuItem onClick={handleClose}>My account</MenuItem>
+                            <MenuItem onClick={handleClose}>Logout</MenuItem>
+                        </Menu>
+                    </Box>
+                    <Box>
                         <Button id="documents-button" aria-controls={open ? 'documents-menu' : undefined} aria-haspopup="true"
                             aria-expanded={open ? 'true' : undefined} onClick={handleClick} sx={styles.menuButton}
                         > <FolderCopy /> <span style={{ padding: "0 3px" }} >Documents</span> <ArrowDropDown />
@@ -162,6 +176,19 @@ export default function Layout({ children }) {
                         </Button>
                         <Menu id="services-menu" anchorEl={anchorEl} open={open} onClose={handleClose}
                             MenuListProps={{'aria-labelledby': 'services-button'}}
+                        >
+                            <MenuItem onClick={handleClose}>Profile</MenuItem>
+                            <MenuItem onClick={handleClose}>My account</MenuItem>
+                            <MenuItem onClick={handleClose}>Logout</MenuItem>
+                        </Menu>
+                    </Box>
+                    <Box>
+                        <Button id="information-button" aria-controls={open ? 'information-menu' : undefined} aria-haspopup="true"
+                            aria-expanded={open ? 'true' : undefined} onClick={handleClick} sx={styles.menuButton}
+                        > <Leaderboard /> <span style={{ padding: "0 3px" }} >Information</span> <ArrowDropDown />
+                        </Button>
+                        <Menu id="information-menu" anchorEl={anchorEl} open={open} onClose={handleClose}
+                            MenuListProps={{'aria-labelledby': 'information-button'}}
                         >
                             <MenuItem onClick={handleClose}>Profile</MenuItem>
                             <MenuItem onClick={handleClose}>My account</MenuItem>
@@ -194,19 +221,7 @@ export default function Layout({ children }) {
                             <MenuItem onClick={handleClose}>Logout</MenuItem>
                         </Menu>
                     </Box>
-                    <Box>
-                        <Button id="profile-button" aria-controls={open ? 'profile-menu' : undefined} aria-haspopup="true"
-                            aria-expanded={open ? 'true' : undefined} onClick={handleClick} sx={styles.menuButton}
-                        > <Person /> <span style={{ padding: "0 3px" }} >Profile</span> <ArrowDropDown />
-                        </Button>
-                        <Menu id="profile-menu" anchorEl={anchorEl} open={open} onClose={handleClose}
-                            MenuListProps={{'aria-labelledby': 'profile-button'}}
-                        >
-                            <MenuItem onClick={handleClose}>Profile</MenuItem>
-                            <MenuItem onClick={handleClose}>My account</MenuItem>
-                            <MenuItem onClick={handleClose}>Logout</MenuItem>
-                        </Menu>
-                    </Box>
+                    
             </Box>
             <Box sx={styles.mainHold}>
                 {children}
