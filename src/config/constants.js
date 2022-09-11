@@ -33,3 +33,9 @@ export const recentUploads = [
     { name: "someout.pdf", size: 20221 },
     { name: "some-listries-apso.png", size: 32021 },
 ]
+
+export const recentPayments = [
+    { method: "UPI", mode: "CR", vendor: "Amazon Pay", amount: 320112, date: '2022-03-02', user: "Banshee Kumar" },
+    { method: "Net Banking", mode: "DR", vendor: "PayTM", amount: 320112, date: '2022-03-02', user: "Banshee Kumar" },
+    { method: "UPI", mode: "CR", vendor: "Amazon Pay", amount: 320112, date: '2022-03-02', user: "Banshee Kumar" },
+]

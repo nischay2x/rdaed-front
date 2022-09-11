@@ -63,6 +63,7 @@ const styles = {
         py: 1,
         px: 2
     },
+    // this page
     approvalBox: {
         background: 'linear-gradient(282.97deg, #FF3A1F 37.65%, rgba(255, 46, 0, 0) 249.25%)',
         filter: 'drop-shadow(0px 0px 60px rgba(255, 58, 31, 0.4))',
@@ -76,6 +77,12 @@ const styles = {
         color: "#fff",
         px:3, py: 2,
         borderRadius: "40px"
+    },
+    paymentBox: {
+        p: 2,
+        borderRadius: "50px",
+        overflow: 'hidden',
+        maxHeigth: 300
     }
 }
 
@@ -125,6 +132,12 @@ function LeftPart () {
                     </Box>
                 </Grid>    
             </Box>
+            <br/>
+            <Paper sx={styles.paymentBox}>
+                <Box display="flex" alignItems="center">
+                    <Typography variant='h6' fontWeight={500}>Recent Payments </Typography> <ArrowRight/> 
+                </Box>
+            </Paper>
             <Grid container rowSpacing={2} py={2}>
                 <Grid item xs={12} md={12}>
                     <Box sx={styles.userInfo}>
