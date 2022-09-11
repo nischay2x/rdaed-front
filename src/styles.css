@@ -29,3 +29,7 @@ input.property-search-input {
   padding: 7px 20px;
   width: 300px;
 }
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
