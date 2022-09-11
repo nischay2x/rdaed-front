@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
-import { Box, Paper, Container, Grid, Button, Typography, Link, Tabs, Tab, withStyles } from "@mui/material";
+import { Box, Paper, Container, Grid, Button, Typography, Link, Tabs, Tab, Input, TextareaAutosize } from "@mui/material";
 import { ControlPoint, ArrowRight } from '@mui/icons-material';
-//import { withStyles } from "@mui/styles"
+import TabPanel from "../../components/tabPanel.jsx"
 
 import BgImage from "../../components/bgImage.jsx";
 import { user, properties, recentPayments } from "../../config/constants.js";
@@ -108,6 +108,13 @@ export default function Home() {
 function LeftPart () {
     
     const [bugTab, setBugTab] = useState(0);
+    const [report, setReport] = useState({
+        title: "", file: "", description: ""
+    });
+    
+    const handleReportChange = (e) => {
+        setReport(prev => ({...prev, [e.target.name]: e.target.value}));
+    }
     
     return(
         <Box sx={{ px: 2 }} >  
@@ -173,24 +180,48 @@ function LeftPart () {
             </Paper>
             <br/>
             <Paper sx={styles.bugBox}>
-                <Tabs value={bugTab} onChange={(e, nv) => { setBugTab(nv) }} 
-                    aria-label="basic tabs example" variant="fullWidth">
-                    <Tab label="Item One" id='simple-tab-0' ariaControls='simple-tabpanel-0'/>
-                    <Tab label="Item Two" id='simple-tab-1' ariaControls='simple-tabpanel-1'/>
+                <Tabs value={bugTab} sx={{ borderBottom: "1px solid #ededed"}} onChange={(e, nv) => { setBugTab(nv) }} 
+                    aria-label="basic tabs example" id="bug-tabs" variant="fullWidth">
+                    <Tab sx={{textTransform: "none", fontSize: "1.1rem"}} label="Report Bug" id='simple-tab-0' aria-controls='simple-tabpanel-0'/>
+                    <Tab sx={{textTransform: "none", fontSize: "1.1rem"}} label="Track Reported Bug" id='simple-tab-1' aria-controls='simple-tabpanel-1'/>
                 </Tabs>
+                
+                <TabPanel value={bugTab} index={0}>
+                    <form encType='multipart/form-data' onSubmit={() => {}}>
+                        <Box display="flex" justifyContent='space-between'>
+                            <input type="text" placeholder='Title *' required name="title"
+                                className='c-text-input' style={{minWidth: "200px"}}  
+                                value={report.title} onChange={handleReportChange}
+                            />
+                            <input type="file" placeholder='Upload Screenshots' />
+                        </Box>  
+                        <br/>
+                        <Box pr={3}>
+                            <textarea value={report.description} 
+                                placeholder='Describe the issue* (maximum of 30 words)'
+                                className='c-text-input'
+                                style={{width: "100%"}}
+                                rows={4}
+                            ></textarea>
+                        </Box>
+                        <br/>
+                        <Box display="flex">
+                            <Button type="submit" style={{ backgroundColor: "black", color: "#fff" }} 
+                                variant="contained" sx={{ borderRadius: "25px", px: 5, ml: 'auto' }}
+                            >
+                                Report
+                            </Button>
+                        </Box>
+                    </form>
+                </TabPanel>
+                <TabPanel value={bugTab} index={1}>
+                    two
+                </TabPanel>
             </Paper>
         </Box>
     )
 }
 
-// const CustomTab = withStyles({
-//  root: {
-//    backgroundColor: 'orange',
-//  },
-//  selected: {
-//    backgroundColor: 'purple',
-//  },
-//})(Tab);
 
 function RightPart () {
     return(
