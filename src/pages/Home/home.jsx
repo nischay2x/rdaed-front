@@ -4,7 +4,7 @@ import { Box, Paper, Container, Grid, Button, Typography, Link } from "@mui/mate
 import { ControlPoint, ArrowRight } from '@mui/icons-material';
 
 import BgImage from "../../components/bgImage.jsx";
-import { user, properties } from "../../config/constants.js";
+import { user, properties, recentPayments } from "../../config/constants.js";
 
 const styles = {
     boxButtons: {
@@ -79,7 +79,7 @@ const styles = {
         borderRadius: "40px"
     },
     paymentBox: {
-        p: 2,
+        py: 2,
         borderRadius: "50px",
         overflow: 'hidden',
         maxHeigth: 300
@@ -134,9 +134,30 @@ function LeftPart () {
             </Box>
             <br/>
             <Paper sx={styles.paymentBox}>
-                <Box display="flex" alignItems="center">
+                <Box display="flex" alignItems="center" px={3} py={2}>
                     <Typography variant='h6' fontWeight={500}>Recent Payments </Typography> <ArrowRight/> 
                 </Box>
+                <Grid container rowSpacing={1}>
+                    {
+                        recentPayments.map((p, i) => <Grid item xl={12} md={12} key={i}>
+                            <Box display='flex' alignItems='center' style={{ backgroundColor: "#ededed" }} px={3} py={1} >
+                                <Box>
+                                    <Typography color="grey.main" variant="span" fontSize="small" sx={{ display: "block" }}>
+                                        {p.mode === 'CR' ? "Recieved" : "Sent"} via {p.method} | {p.vendor}
+                                    </Typography>
+                                    <Typography variant="h6">
+                                        {p.user}
+                                    </Typography>
+                                </Box>
+                                <Box>
+                                    <Typography color="grey.main" variant="span" fontSize="small">
+                                        {p.date}
+                                    </Typography>
+                                </Box>
+                            </Box>
+                        </Grid>)
+                    }
+                </Grid>
             </Paper>
             <Grid container rowSpacing={2} py={2}>
                 <Grid item xs={12} md={12}>
