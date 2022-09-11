@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Box, Paper, Container, Grid, Button, Typography, Link } from "@mui/material";
-import { ControlPoint } from '@mui/icons-material';
+import { ControlPoint, ArrowRight } from '@mui/icons-material';
 
 import BgImage from "../../components/bgImage.jsx";
 import { user, properties } from "../../config/constants.js";
@@ -62,22 +62,34 @@ const styles = {
         textTransform: "none",
         py: 1,
         px: 2
+    },
+    approvalBox: {
+        background: 'linear-gradient(282.97deg, #FF3A1F 37.65%, rgba(255, 46, 0, 0) 249.25%)',
+        filter: 'drop-shadow(0px 0px 60px rgba(255, 58, 31, 0.4))',
+        color: "#fff",
+        px:3, py: 2,
+        borderRadius: "40px"
+    },
+    complaintBox: {
+        background: 'linear-gradient(282.97deg, #272727 37.65%, #FFFFFF 249.25%)',
+        boxShadow: '0px 0px 60px rgba(39, 39, 39, 0.32)',
+        color: "#fff",
+        px:3, py: 2,
+        borderRadius: "40px"
     }
 }
 
 export default function Home() {
   return (
       <Container maxWidth="xl">
-          <Paper elevation={3} sx={{px: 3, py: 4}}>
-              <Grid container>
-                  <Grid item md={4} lg={4} xl={3}>  
+              <Grid container justifyContent="space-around">
+                  <Grid item md={7} lg={8} xl={8}>  
                     <LeftPart/>
                   </Grid>
-                  <Grid item md={8} lg={8} xl={9}>
+                  <Grid item md={5} lg={4} xl={4}>
                       <RightPart/>
                   </Grid>
               </Grid>
-          </Paper>
       </Container>
   )
 }
@@ -85,7 +97,34 @@ export default function Home() {
 function LeftPart () {
     return(
         <Box sx={{ px: 2 }} >  
-            <Box sx={{...styles.boxButtons, backgroundColor: "#C60F2D"}}>User Profile</Box>
+            <Box sx={{ display: "flex", columnSpacing: 3, flexWrap: "nowrap", overflow: { y: "scroll" }, columnGap: 2 }}  >
+                <Grid item xl={4} lg={6} md={8}>
+                    <Box sx={styles.approvalBox}>
+                        <Box display="flex" alignItems="center">
+                            <Typography>Pending Approvals </Typography> <ArrowRight/> 
+                        </Box>
+                        <Typography lineHeight="5.5rem" display="block" variant='span' fontSize="5rem" fontWeight="500">
+                            04
+                        </Typography>
+                        <Typography variant='span' lineHeight="0.7rem" fontSize="0.7rem" maxWidth="70%">
+                            Click the card to get detailed information about the pending properties.
+                        </Typography>
+                    </Box>
+                </Grid>  
+                <Grid item xl={4} lg={6} md={8}>
+                    <Box sx={styles.complaintBox}>
+                        <Box display="flex" alignItems="center">
+                            <Typography>Pending Approvals </Typography> <ArrowRight/> 
+                        </Box>
+                        <Typography lineHeight="5.5rem" display="block" variant='span' fontSize="5rem" fontWeight="500">
+                            04
+                        </Typography>
+                        <Typography variant='span' lineHeight="0.7rem" fontSize="0.7rem" maxWidth="70%">
+                            Click the card to view/manage/resolve the complaints received.
+                        </Typography>
+                    </Box>
+                </Grid>    
+            </Box>
             <Grid container rowSpacing={2} py={2}>
                 <Grid item xs={12} md={12}>
                     <Box sx={styles.userInfo}>
