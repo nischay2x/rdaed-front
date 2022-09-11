@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 import { Box, Paper, Container, Grid, Button, Typography, Link, Tabs, Tab, Input, TextareaAutosize } from "@mui/material";
-import { ControlPoint, ArrowRight } from '@mui/icons-material';
+import { ControlPoint, ArrowRight, Upload } from '@mui/icons-material';
 import TabPanel from "../../components/tabPanel.jsx"
 
 import BgImage from "../../components/bgImage.jsx";
@@ -112,6 +112,8 @@ function LeftPart () {
         title: "", file: "", description: ""
     });
     
+    const screenshotsRef = useRef();
+    
     const handleReportChange = (e) => {
         setReport(prev => ({...prev, [e.target.name]: e.target.value}));
     }
@@ -193,7 +195,12 @@ function LeftPart () {
                                 className='c-text-input' style={{minWidth: "200px"}}  
                                 value={report.title} onChange={handleReportChange}
                             />
-                            <input type="file" placeholder='Upload Screenshots' />
+                            <Button onClick={() => {screenshotsRef.current.click()}}  style={{ color: "#6c6c6c" }} 
+                                sx={{ borderRadius: "25px", px: 4, border: '1px dashed #6c6c6c', textTransform: "none" }}
+                            >
+                               <Upload fontSize="small"/>  Upload Screenshots
+                            </Button>
+                            <input ref={screenshotsRef} style={{display: 'none'}} type="file" name="screenshots" placeholder='Upload Screenshots' />
                         </Box>  
                         <br/>
                         <Box pr={3}>
