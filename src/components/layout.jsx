@@ -79,8 +79,12 @@ const theme = createTheme({
         ].join(','),
     },
     palette: {
-        secondary: {
-            main: '#E33E7F'
+        success: {
+            main: "#14B006"
+        },
+        grey: {
+            main: '#6C6C6C',
+            light: "#EDEDED"
         },
         customBlue: {
             main: '#0047FF'
