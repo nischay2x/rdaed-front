@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 
-import { Box, Paper, Container, Grid, Button, Typography, Link } from "@mui/material";
-import { ControlPoint, ArrowRight } from '@mui/icons-material';
+import { Box, Paper, Container, Grid, Button, Typography, Link, Tabs, Tab, Input, TextareaAutosize } from "@mui/material";
+import { ControlPoint, ArrowRight, Upload } from '@mui/icons-material';
+import TabPanel from "../../components/tabPanel.jsx"
 
 import BgImage from "../../components/bgImage.jsx";
 import { user, properties, recentPayments } from "../../config/constants.js";
@@ -79,10 +80,13 @@ const styles = {
         borderRadius: "40px"
     },
     paymentBox: {
-        py: 2,
         borderRadius: "50px",
         overflow: 'hidden',
         maxHeigth: 300
+    },
+    bugBox: {
+        borderRadius: "40px",
+        overflow: 'hidden'
     }
 }
 
@@ -102,6 +106,18 @@ export default function Home() {
 }
 
 function LeftPart () {
+    
+    const [bugTab, setBugTab] = useState(0);
+    const [report, setReport] = useState({
+        title: "", file: "", description: ""
+    });
+    
+    const screenshotsRef = useRef();
+    
+    const handleReportChange = (e) => {
+        setReport(prev => ({...prev, [e.target.name]: e.target.value}));
+    }
+    
     return(
         <Box sx={{ px: 2 }} >  
             <Box sx={{ display: "flex", columnSpacing: 3, flexWrap: "nowrap", overflow: { y: "scroll" }, columnGap: 2 }}  >
@@ -134,14 +150,14 @@ function LeftPart () {
             </Box>
             <br/>
             <Paper sx={styles.paymentBox}>
-                <Box display="flex" alignItems="center" px={3} py={2}>
-                    <Typography variant='h6' fontWeight={500}>Recent Payments </Typography> <ArrowRight/> 
+                <Box display="flex" alignItems="center" px={3} py={3}>
+                    <Typography variant='h5' fontWeight={500}>Recent Payments </Typography> <ArrowRight/> 
                 </Box>
-                <Grid container rowSpacing={1}>
+                <Grid container rowSpacing={1} maxHeight="220px" className='no-scrollbar' style={{overflowY: "scroll"}}>
                     {
                         recentPayments.map((p, i) => <Grid item xl={12} md={12} key={i}>
-                            <Box display='flex' alignItems='center' style={{ backgroundColor: "#ededed" }} px={3} py={1} >
-                                <Box>
+                            <Box display='flex' alignItems='center' justifyContent='space-between' style={{ backgroundColor: "#ededed" }} px={3} py={1} >
+                                <Box width="50%">
                                     <Typography color="grey.main" variant="span" fontSize="small" sx={{ display: "block" }}>
                                         {p.mode === 'CR' ? "Recieved" : "Sent"} via {p.method} | {p.vendor}
                                     </Typography>
@@ -154,48 +170,65 @@ function LeftPart () {
                                         {p.date}
                                     </Typography>
                                 </Box>
+                                <Box>
+                                    <Typography color={ p.mode === 'CR' ? "success.main": "error.main" } variant="h6">
+                                        &#8377;{new Intl.NumberFormat('en-IN').format(p.amount)}
+                                    </Typography>
+                                </Box>
                             </Box>
                         </Grid>)
                     }
                 </Grid>
             </Paper>
-            <Grid container rowSpacing={2} py={2}>
-                <Grid item xs={12} md={12}>
-                    <Box sx={styles.userInfo}>
-                        <span style={{ color: "#6c6c6c" }}>Name :</span> {user.name}
-                    </Box>
-                </Grid>
-                <Grid item xs={12} md={12}>
-                    <Box sx={styles.userInfo}>
-                        <span style={{ color: "#6c6c6c" }}>Mobile :</span> {user.mobile}
-                    </Box>
-                </Grid>
-                <Grid item xs={12} md={12}>
-                    <Box sx={styles.userInfo}>
-                        <span style={{ color: "#6c6c6c" }}>Address :</span> {user.address}
-                    </Box>
-                </Grid>
-            </Grid>
-            <Link href="#" underline="none">
-                <Box sx={{...styles.boxButtons, backgroundColor: "var(--dark-blue)", borderRadius: "3px"}}
-                >Know More</Box>
-            </Link>
             <br/>
-            <Box sx={styles.alertBox} py={2} >
-                <Typography fontFamily="inherit">
-                    <b>Your Payment Is Due</b>
-                </Typography>
-                <Box sx={styles.dueBox}>
-                    <span >Due Type : </span> <span style={{fontWeight: 500}}>Water Bill</span>
-                </Box>
-                <Box sx={styles.dueBox}>
-                    <span>Due Date : </span> <span style={{fontWeight: 500}}>02.03.2022</span>
-                </Box>
-                <Link href="#" color="inherit">Know More</Link>
-            </Box>
+            <Paper sx={styles.bugBox}>
+                <Tabs value={bugTab} sx={{ borderBottom: "1px solid #ededed"}} onChange={(e, nv) => { setBugTab(nv) }} 
+                    aria-label="basic tabs example" id="bug-tabs" variant="fullWidth">
+                    <Tab sx={{textTransform: "none", fontSize: "1.1rem"}} label="Report Bug" id='simple-tab-0' aria-controls='simple-tabpanel-0'/>
+                    <Tab sx={{textTransform: "none", fontSize: "1.1rem"}} label="Track Reported Bug" id='simple-tab-1' aria-controls='simple-tabpanel-1'/>
+                </Tabs>
+                
+                <TabPanel value={bugTab} index={0}>
+                    <form encType='multipart/form-data' onSubmit={() => {}}>
+                        <Box display="flex" justifyContent='space-between'>
+                            <input type="text" placeholder='Title *' required name="title"
+                                className='c-text-input' style={{minWidth: "200px"}}  
+                                value={report.title} onChange={handleReportChange}
+                            />
+                            <Button onClick={() => {screenshotsRef.current.click()}}  style={{ color: "#6c6c6c" }} 
+                                sx={{ borderRadius: "25px", px: 4, border: '1px dashed #6c6c6c', textTransform: "none" }}
+                            >
+                               <Upload fontSize="small"/>  Upload Screenshots
+                            </Button>
+                            <input ref={screenshotsRef} style={{display: 'none'}} type="file" name="screenshots" placeholder='Upload Screenshots' />
+                        </Box>  
+                        <br/>
+                        <Box pr={3}>
+                            <textarea value={report.description} 
+                                placeholder='Describe the issue* (maximum of 30 words)'
+                                className='c-text-input'
+                                style={{width: "100%"}}
+                                rows={4}
+                            ></textarea>
+                        </Box>
+                        <br/>
+                        <Box display="flex">
+                            <Button type="submit" style={{ backgroundColor: "black", color: "#fff" }} 
+                                variant="contained" sx={{ borderRadius: "25px", px: 5, ml: 'auto' }}
+                            >
+                                Report
+                            </Button>
+                        </Box>
+                    </form>
+                </TabPanel>
+                <TabPanel value={bugTab} index={1}>
+                    two
+                </TabPanel>
+            </Paper>
         </Box>
     )
 }
+
 
 function RightPart () {
     return(

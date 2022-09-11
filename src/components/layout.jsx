@@ -88,6 +88,9 @@ const theme = createTheme({
         },
         customBlue: {
             main: '#0047FF'
+        },
+        black: {
+            main: "#000000"
         }
     }
 });

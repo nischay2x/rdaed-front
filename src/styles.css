@@ -29,3 +29,18 @@ input.property-search-input {
   padding: 7px 20px;
   width: 300px;
 }
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+#bug-tabs .Mui-selected {
+  background-color: black;
+  color: #fff;
+}
+
+.c-text-input {
+  padding: 7px 10px;
+  border-radius: 20px;
+  border: 0.5px solid #6c6c6c;
+}
