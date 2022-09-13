@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 
 import { Box, Paper, Container, Grid, Button, Typography, Link, Tabs, Tab, Input, TextareaAutosize } from "@mui/material";
-import { ControlPoint, ArrowRight, Upload } from '@mui/icons-material';
+import { ControlPoint, ArrowRight, Upload, Call, Mail, LocationOn } from '@mui/icons-material';
 import TabPanel from "../../components/tabPanel.jsx"
 
 import BgImage from "../../components/bgImage.jsx";
@@ -87,6 +87,24 @@ const styles = {
     bugBox: {
         borderRadius: "40px",
         overflow: 'hidden'
+    },
+    userInfoInput: { 
+        p: 1, 
+        borderRadius: "10px", 
+        backgroundColor: "#ededed" 
+    },
+    editProfileButton: {
+      color: "#fff",
+      borderRadius: "25px",
+      backgroundColor: "rgba(0, 71, 255)",
+      display: "flex",
+      p: 1,
+      textTransform: "none",
+      ":hover": {
+          backgroundColor: "rgba(0, 71, 255, 0.9)",
+          boxShadow: "0px 0px 35px rgba(39, 39, 39, 0.04)",
+          color: "#fff"
+      }
     }
 }
 
@@ -158,9 +176,9 @@ function LeftPart () {
                         recentPayments.map((p, i) => <Grid item xl={12} md={12} key={i}>
                             <Box display='flex' alignItems='center' justifyContent='space-between' style={{ backgroundColor: "#ededed" }} px={3} py={1} >
                                 <Box width="50%">
-                                    <Typography color="grey.main" variant="span" fontSize="small" sx={{ display: "block" }}>
+                                    <span style={{display: "block", fontSize: "small", color: "#6c6c6c"}}>
                                         {p.mode === 'CR' ? "Recieved" : "Sent"} via {p.method} | {p.vendor}
-                                    </Typography>
+                                    </span>
                                     <Typography variant="h6">
                                         {p.user}
                                     </Typography>
@@ -232,54 +250,46 @@ function LeftPart () {
 
 function RightPart () {
     return(
-        <Box sx={{px: 2}}>
-            <Grid container justifyContent="space-between" pl={3}>
-                <Grid item md={5} lg={5} xl={3}>
-                    <Box sx={{...styles.boxButtons, backgroundColor: "#C60F2D"}}>Properties</Box>
-                </Grid>
-                <Grid item md={4} lg={3} xl={2}>
-                    <Button sx={styles.addProperty}>
-                        <ControlPoint fontSize="small" /> Add Property
-                    </Button>
-                </Grid>
-            </Grid>
-            <Box sx={{ borderLeft: "1px solid #dddddd", pl: 3 }}>
-                { properties.map((p, i) => <PropertyCard data={p} key={i} />) }
-            </Box>
+        <Box px={1}>
+            <Paper sx={{ borderRadius: "30px", overflow: "hidden"}}>
+                <Box py={2} display="flex" justifyContent="center">
+                    <BgImage src={user.image} width="9rem" height="9rem" borderRadius="50%" />
+                </Box>
+                <Typography variant="h6" textAlign="center" fontWeight={600}>
+                    {user.name}
+                </Typography>
+                <Typography varaint="span" textAlign="center" fontWeight={500} style={{color: "#6c6c6c"}}>
+                    Employee
+                </Typography>
+                <Box py={3} px={4} display="flex" flexDirection="column" rowGap={2} mx='auto' style={{maxWidth: "350px"}}>
+                    <Box >
+                        <span style={{color: "#6c6c6c", fontSize: "small"}} >Phone Number</span>
+                        <Box display="flex" columnGap={1}>
+                            <Box sx={styles.userInfoInput} style={{width: "30px"}}>
+                                <input value={`+91`} type="text" className='hidden-input' />
+                            </Box>
+                            <Box sx={styles.userInfoInput} display="flex" columnGap={1} alignItems="center" style={{width: "150px"}} >
+                               <Call fontSize='small' sx={{ ml: 2}}/> <input value="6264-22-177" type="tel" className='hidden-input' />
+                            </Box>
+                        </Box>
+                    </Box>
+                    <Box >
+                        <span style={{color: "#6c6c6c", fontSize: "small"}} >Email</span>
+                        <Box sx={styles.userInfoInput} display="flex" columnGap={1} alignItems="center" >
+                            <Mail fontSize='small' sx={{ ml: 2}}/> <input value={user.email} type="mail" className='hidden-input' />
+                        </Box>
+                    </Box>
+                    <Box >
+                        <span style={{color: "#6c6c6c", fontSize: "small"}} >Address</span>
+                        <Box sx={styles.userInfoInput} display="flex" columnGap={1}  >
+                            <LocationOn fontSize='small' sx={{ ml: 2}}/> <textarea value={user.address} className='hidden-input'></textarea>
+                        </Box>
+                    </Box>
+                    <Box pt={3}>
+                        <Button style={{width: "100%"}} sx={styles.editProfileButton} >Edit Profile</Button>
+                    </Box>
+                </Box>
+            </Paper>
         </Box>
-    )
-}
-
-function PropertyCard ({ data }) {
-    return(
-        <Grid container sx={styles.propertyBox}>
-            <Grid item md={3}>
-                <BgImage src={data.image} borderRadius="50px" overflow="hidden" width="100%" height="100%"/>
-            </Grid>
-            
-            <Grid item md={7}>
-            <Grid container px={3} rowSpacing={1} sx={{fontSize: "0.9rem"}}>
-                <Grid item xs={12} md={6}>
-                    <span className="text-secondary">Plot Number : </span> {data.plot}
-                </Grid>
-                <Grid item xs={12} md={6}>
-                    <span className="text-secondary">Allotment Date : </span> {data.plot}
-                </Grid>
-                <Grid item xs={12} md={6}>
-                    <span className="text-secondary">Sector : </span> {data.sector}
-                </Grid>
-                <Grid item xs={12} md={6}>
-                    <span className="text-secondary">Value : </span> {data.value}
-                </Grid>
-                <Grid item xs={12} md={6}>
-                    <span className="text-secondary">Owner : </span> {data.owner}
-                </Grid>
-            </Grid>
-            </Grid>
-            
-            <Grid item md={2} display="flex">
-                <Button variant="contained" sx={styles.knowProperty} color="primary">Know More</Button>
-            </Grid>
-        </Grid>
     )
 }
