@@ -27,6 +27,12 @@ export const properties = [
     }
 ]
 
+export const docs = [
+    { filename: "adhaar.jpg", image: "https://royalpatiala.in/wp-content/uploads/2022/04/WM-Letter-regarding-PoIPoBPoA-notification_page-0002.jpg",  },
+    { filename: "adhaar.jpg", image: "https://royalpatiala.in/wp-content/uploads/2022/04/WM-Letter-regarding-PoIPoBPoA-notification_page-0002.jpg",  },
+    { filename: "adhaar.jpg", image: "https://royalpatiala.in/wp-content/uploads/2022/04/WM-Letter-regarding-PoIPoBPoA-notification_page-0002.jpg",  },
+]
+
 export const allowedFileTypes = ["JPEG", "PNG", "PDF"];
 export const recentUploads = [
     { name: "something.jpg", size: 2021 },

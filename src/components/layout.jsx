@@ -1,29 +1,12 @@
 import React, { useState } from "react";
 import { Link as RouteLink, useNavigate } from "react-router-dom";
 import {
-  Search,
-  Person,
-  Home,
-  CurrencyRupee,
-  CardTravel,
-  Leaderboard,
-  Comment,
-  ListAlt,
-  Description,
-  MoreHoriz,
-  ArrowDropDown,
-  FolderCopy,
+  Search, Person, Home, CurrencyRupee, CardTravel, Leaderboard,
+  Comment, ListAlt, Description, MoreHoriz, ArrowDropDown, FolderCopy,
 } from "@mui/icons-material";
 import {
-  Box,
-  Link,
-  Typography,
-  Avatar,
-  Button,
-  Menu,
-  MenuItem,
-  TextField,
-  IconButton,
+  Box, Link, Typography, Avatar, Button,
+  Menu, MenuItem, TextField, IconButton,
 } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
@@ -113,6 +96,9 @@ const theme = createTheme({
     black: {
       main: "#000000",
     },
+    white: {
+      main: "#fff"
+    }
   },
 });
 
@@ -150,7 +136,7 @@ export default function Layout({ children }) {
         <Box display="flex" columnGap={4} alignItems="center">
           <form
             style={{ display: "flex", columnGap: "10px" }}
-            onSubmit={() => {}}
+            onSubmit={() => { }}
           >
             <input
               type="text"
@@ -198,32 +184,34 @@ export default function Layout({ children }) {
       </Box>
       <Box sx={styles.appBar}>
         <Box>
-          <Button onClick={handleClick} sx={styles.menuButton}>
-            <Home /> <span style={{ padding: "0 3px" }}>Home</span>
-          </Button>
+          <RouteLink to="/" style={{ textDecoration: 'none' }}>
+            <Button sx={styles.menuButton}>
+              <Home /> <span style={{ padding: "0 3px" }}>Home</span>
+            </Button>
+          </RouteLink>
         </Box>
         <DropDownMenu
           icon={<CardTravel />}
           mainText="Properties"
           listItems={[
             { text: "Property List/Add", to: "/properties/list" },
-            { text: "Rejected Properties", to: "/services/rejected" },
+            { text: "Rejected Properties", to: "/properties/rejected" },
           ]}
         />
         <DropDownMenu
           icon={<FolderCopy />}
           mainText="Documents"
           listItems={[
-            { text: "Search Plot", to: "/services/plot-search" },
-            { text: "Search Plot", to: "/services/plot-search" },
+            { text: "Received Docs", to: "/docs/received" },
+            { text: "Rejected Docs", to: "/docs/rejected" },
           ]}
         />
         <DropDownMenu
           icon={<ListAlt />}
           mainText="Services"
           listItems={[
-            { text: "Search Plot", to: "/services/plot-search" },
-            { text: "Search Plot", to: "/services/plot-search" },
+            { text: "Bid List", to: "/services/bid" },
+            { text: "Lottery List", to: "/services/lotery" },
           ]}
         />
         <DropDownMenu

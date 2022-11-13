@@ -49,6 +49,10 @@ input.property-search-input {
 
 .nav-links .MuiPaper-root {
   min-width: 150px !important;
+  border-bottom-right-radius: 25px;
+  border-bottom-left-radius: 25px;
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
 }
 
 .nav-links .MuiList-root {
@@ -60,4 +64,48 @@ input.property-search-input {
   width: 100%;
   text-decoration: none;
   color: inherit;
+}
+
+.doc-outer {
+  position: relative;
+}
+.doc-outer:after{
+  position: absolute;
+  left: 0;
+  content: " ";
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(to bottom, transparent, transparent, rgba(0,0,0, 0.8));
+  border-bottom-right-radius: 25px;
+  border-bottom-left-radius: 25px;
+}
+.doc-inner {
+  position: absolute;
+  width: 94%;  
+  bottom: 1px;
+  z-index: 2;
+  padding-bottom: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  border-bottom-right-radius: 25px;
+  border-bottom-left-radius: 25px;
+}
+
+.rounded-edge .css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper {
+  border-radius: 20px;
+}
+.rounded-edge .css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper ul {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+.rounded-edge .css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper li {
+  font-size: small;
+  min-height: 10px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+.rounded-edge .css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper li:not(:last-child) {
+  border-bottom: 1px solid lightgray;
 }
