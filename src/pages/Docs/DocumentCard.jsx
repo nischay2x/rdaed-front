@@ -14,7 +14,7 @@ export default function DocumentCard({ type = "NORMAL" }) {
         setAnchorEl(null);
     };
     return (
-        <Paper sx={{ borderRadius: '25px', mx: 1, my: 1 }} elevation={2} >
+        <Paper sx={{ borderRadius: '25px'}} elevation={2} >
             <Box display='flex' justifyContent='space-between' alignItems='center' px={1} sx={{ pt: '4px' }}>
                 <Typography noWrap maxWidth="200px" sx={{ textOverflow: 'ellipsis' }}>
                     Filename.jpg

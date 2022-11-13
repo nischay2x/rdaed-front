@@ -50,7 +50,8 @@ const styles = {
   },
   appBar: {
     display: "flex",
-    justifyContent: "space-around",
+    justifyContent: "center",
+    columnGap: 1,
     padding: "0.5rem 2rem",
     alignItems: "center",
     zIndex: 3,
@@ -215,29 +216,21 @@ export default function Layout({ children }) {
           ]}
         />
         <DropDownMenu
-          icon={<Leaderboard />}
-          mainText="Information"
-          listItems={[
-            { text: "Search Plot", to: "/services/plot-search" },
-            { text: "Search Plot", to: "/services/plot-search" },
-          ]}
-        />
-        <DropDownMenu
           icon={<Comment />}
           mainText="Complaints"
           listItems={[
-            { text: "Search Plot", to: "/services/plot-search" },
-            { text: "Search Plot", to: "/services/plot-search" },
+            { text: "Received Compl.", to: "/complaints/received" },
+            { text: "Resolved Compl.", to: "/complaints/resolved" },
           ]}
         />
-        <DropDownMenu
-          icon={<CurrencyRupee />}
-          mainText="Payments"
-          listItems={[
-            { text: "Search Plot", to: "/services/plot-search" },
-            { text: "Search Plot", to: "/services/plot-search" },
-          ]}
-        />
+        
+        <Box>
+          <RouteLink to="/payments" style={{ textDecoration: 'none' }}>
+            <Button sx={styles.menuButton}>
+              <CurrencyRupee /> <span style={{ padding: "0 3px" }}>Payments</span>
+            </Button>
+          </RouteLink>
+        </Box>
       </Box>
       <Box sx={styles.mainHold}>{children}</Box>
     </ThemeProvider>

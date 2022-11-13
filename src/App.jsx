@@ -8,6 +8,10 @@ import RejectedPropertyList from "./pages/Properties/rejected";
 import DocsList from "./pages/Docs/list";
 import RejectedDocsList from "./pages/Docs/rejected";
 import BidList from "./pages/Services/bidList";
+import LotteryList from "./pages/Services/lotterList";
+import ReceivedList from "./pages/Complaints/receivedList";
+import ResolvedList from "./pages/Complaints/resolvedList";
+import Payments from "./pages/Payments/payments";
 
 export default function App() {
   return (
@@ -21,7 +25,12 @@ export default function App() {
       <Route path="docs/rejected" element={<Layout><RejectedDocsList /></Layout>}/>
 
       <Route path="services/bid" element={<Layout><BidList/></Layout>}/>
-      {/* <Route path="properties/list" element={<Layout><PropertyList /></Layout>}/> */}
+      <Route path="services/lottery" element={<Layout><LotteryList/></Layout>}/>
+
+      <Route path="complaints/received" element={<Layout><ReceivedList/></Layout>}/>
+      <Route path="complaints/resolved" element={<Layout><ResolvedList/></Layout>}/>
+
+      <Route path="payments" element={<Layout><Payments/></Layout>}/>
     </Routes>
   );
 }

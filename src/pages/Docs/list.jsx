@@ -3,7 +3,7 @@ import DocumentCard from "./DocumentCard";
 
 export default function DocsList() {
 
-    return <Grid container>
+    return <Grid container spacing={2}>
         <Grid item xs={12} sm={10} md={6} lg={4} xl={3}>
             <DocumentCard />
         </Grid>

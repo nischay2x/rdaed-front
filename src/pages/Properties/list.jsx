@@ -8,11 +8,11 @@ export const properties = [
         image: "https://images.pexels.com/photos/60638/namibia-africa-landscape-nature-60638.jpeg?auto=compress&cs=tinysrgb&w=480&h=285&dpr=1"
     },
     {
-        plot: "AB1", sector: "B4", allotmentDate: "02/01/2022", value: "10.53", owner: "Rohit Sharma",
+        plot: "AB2", sector: "B4", allotmentDate: "02/01/2022", value: "10.53", owner: "Rohit Sharma",
         image: "https://images.pexels.com/photos/60638/namibia-africa-landscape-nature-60638.jpeg?auto=compress&cs=tinysrgb&w=480&h=285&dpr=1"
     },
     {
-        plot: "AB1", sector: "B4", allotmentDate: "02/01/2022", value: "10.53", owner: "Rohit Sharma",
+        plot: "AB3", sector: "B4", allotmentDate: "02/01/2022", value: "10.53", owner: "Rohit Sharma",
         image: "https://images.pexels.com/photos/60638/namibia-africa-landscape-nature-60638.jpeg?auto=compress&cs=tinysrgb&w=480&h=285&dpr=1"
     }
 ]
