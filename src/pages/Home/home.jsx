@@ -1,11 +1,13 @@
 import React, { useRef, useState } from 'react';
 
-import { Box, Paper, Container, Grid, Button, Typography, Link, Tabs, Tab, Input, TextareaAutosize } from "@mui/material";
+import { Box, Paper, Container, Grid, Button, Typography, Link, Tabs, Tab, Input, TextareaAutosize, TextField } from "@mui/material";
 import { ControlPoint, ArrowRight, Upload, Call, Mail, LocationOn } from '@mui/icons-material';
 import TabPanel from "../../components/tabPanel.jsx"
 
 import BgImage from "../../components/bgImage.jsx";
 import { user, properties, recentPayments } from "../../config/constants.js";
+
+import { useUserContext } from "../../components/UserContext.js";
 
 const styles = {
     boxButtons: {
@@ -199,7 +201,7 @@ function LeftPart () {
                 </Grid>
             </Paper>
             <br/>
-            <Paper sx={styles.bugBox}>
+            {/* <Paper sx={styles.bugBox}>
                 <Tabs value={bugTab} sx={{ borderBottom: "1px solid #ededed"}} onChange={(e, nv) => { setBugTab(nv) }} 
                     aria-label="basic tabs example" id="bug-tabs" variant="fullWidth">
                     <Tab sx={{textTransform: "none", fontSize: "1.1rem"}} label="Report Bug" id='simple-tab-0' aria-controls='simple-tabpanel-0'/>
@@ -207,11 +209,9 @@ function LeftPart () {
                 </Tabs>
                 
                 <TabPanel value={bugTab} index={0}>
-                    <form encType='multipart/form-data' onSubmit={() => {}}>
-                        <Box display="flex" justifyContent='space-between'>
-                            <input type="text" placeholder='Title *' required name="title"
-                                className='c-text-input' style={{minWidth: "200px"}}  
-                                value={report.title} onChange={handleReportChange}
+                        <Box component='form' onSubmit={() => {}} display="flex" justifyContent='space-between'>
+                            <TextField size='small' label='Title' required name='title'
+                                sx={{ maxWidth: '200px' }} value={report.title} onChange={handleReportChange} 
                             />
                             <Button onClick={() => {screenshotsRef.current.click()}}  style={{ color: "#6c6c6c" }} 
                                 sx={{ borderRadius: "25px", px: 4, border: '1px dashed #6c6c6c', textTransform: "none" }}
@@ -222,12 +222,9 @@ function LeftPart () {
                         </Box>  
                         <br/>
                         <Box pr={3}>
-                            <textarea value={report.description} 
-                                placeholder='Describe the issue* (maximum of 30 words)'
-                                className='c-text-input'
-                                style={{width: "100%"}}
-                                rows={4}
-                            ></textarea>
+                            <TextField value={report.description} label='Describe the isssue' size='small' 
+                                fullWidth multiline rows={4}
+                            />
                         </Box>
                         <br/>
                         <Box display="flex">
@@ -237,18 +234,21 @@ function LeftPart () {
                                 Report
                             </Button>
                         </Box>
-                    </form>
                 </TabPanel>
                 <TabPanel value={bugTab} index={1}>
                     two
                 </TabPanel>
-            </Paper>
+            </Paper> */}
         </Box>
     )
 }
 
 
 function RightPart () {
+
+    const userContext = useUserContext();
+    const userData = userContext.useUser();
+
     return(
         <Box px={1}>
             <Paper sx={{ borderRadius: "30px", overflow: "hidden"}}>
@@ -256,7 +256,7 @@ function RightPart () {
                     <BgImage src={user.image} width="9rem" height="9rem" borderRadius="50%" />
                 </Box>
                 <Typography variant="h6" textAlign="center" fontWeight={600}>
-                    {user.name}
+                    {userData.fullname}
                 </Typography>
                 <Typography varaint="span" textAlign="center" fontWeight={500} style={{color: "#6c6c6c"}}>
                     Employee
@@ -266,23 +266,17 @@ function RightPart () {
                         <span style={{color: "#6c6c6c", fontSize: "small"}} >Phone Number</span>
                         <Box display="flex" columnGap={1}>
                             <Box sx={styles.userInfoInput} style={{width: "30px"}}>
-                                <input value={`+91`} type="text" className='hidden-input' />
+                                +91
                             </Box>
                             <Box sx={styles.userInfoInput} display="flex" columnGap={1} alignItems="center" style={{width: "150px"}} >
-                               <Call fontSize='small' sx={{ ml: 2}}/> <input value="6264-22-177" type="tel" className='hidden-input' />
+                               <Call fontSize='small' sx={{ ml: 2}}/> {userData.mobile}
                             </Box>
                         </Box>
                     </Box>
                     <Box >
                         <span style={{color: "#6c6c6c", fontSize: "small"}} >Email</span>
                         <Box sx={styles.userInfoInput} display="flex" columnGap={1} alignItems="center" >
-                            <Mail fontSize='small' sx={{ ml: 2}}/> <input value={user.email} type="mail" className='hidden-input' />
-                        </Box>
-                    </Box>
-                    <Box >
-                        <span style={{color: "#6c6c6c", fontSize: "small"}} >Address</span>
-                        <Box sx={styles.userInfoInput} display="flex" columnGap={1}  >
-                            <LocationOn fontSize='small' sx={{ ml: 2}}/> <textarea value={user.address} className='hidden-input'></textarea>
+                            <Mail fontSize='small' sx={{ ml: 2}}/> {userData.user_email}
                         </Box>
                     </Box>
                     <Box pt={3}>

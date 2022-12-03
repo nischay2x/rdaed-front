@@ -176,8 +176,9 @@ export default function Layout({ children }) {
               onClose={handleClose}
               MenuListProps={{ "aria-labelledby": "profile-button" }}
             >
-              <MenuItem onClick={handleClose}>Profile</MenuItem>
-              <MenuItem onClick={handleClose}>My account</MenuItem>
+              <MenuItem>
+                <RouteLink style={{ textDecoration: 'none', color: 'inherit' }} to={'/employee_portal/profile'}>Profile</RouteLink>
+              </MenuItem>
               <MenuItem onClick={handleClose}>Logout</MenuItem>
             </Menu>
           </Box>
@@ -277,7 +278,7 @@ function DropDownMenu({
       >
         {listItems.map((l, i) => (
           <MenuItem key={i}>
-            <RouteLink to={l.to}>{l.text}</RouteLink>
+            <RouteLink to={'/employee_portal'+l.to}>{l.text}</RouteLink>
           </MenuItem>
         ))}
       </Menu>
